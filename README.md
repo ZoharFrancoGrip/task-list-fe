@@ -1,19 +1,24 @@
-# Instructions
 
-run `pnpm i` to install the dependencies
-run `pnpm run lint` to check the code
+# Task Dashboard
 
-run `pnpm run lint:fix` to fix the code
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/ZoharFrancoGrip/tasklist)
 
-run `pnpm run dev` to run the dev server
+[![Run Locally](https://img.shields.io/badge/Run-Locally-blue?style=for-the-badge)](#run-the-project)
 
-run `pnpm run build` to build the project
+## Run the project
 
-run `pnpm run preview` to preview the project
+- run `pnpm i` to install the dependencies
 
-run `pnpm run test` to run the test
+- run `pnpm run lint` to check the code
 
-run `pnpm i` to install the dependencies
+- run `pnpm run lint:fix` to fix the code
+
+- run `pnpm run dev` to run the dev server
+
+## Views
+
+[View Store Code](./src/store/useTaskStore.js)
+![Task Dashboard Screenshot](./screenshots/screenshot.png)
 
 ## React + TypeScript + Vite
 
