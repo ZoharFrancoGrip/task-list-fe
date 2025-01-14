@@ -1,4 +1,21 @@
-# React + TypeScript + Vite
+# Instructions
+
+run `pnpm i` to install the dependencies
+run `pnpm run lint` to check the code
+
+run `pnpm run lint:fix` to fix the code
+
+run `pnpm run dev` to run the dev server
+
+run `pnpm run build` to build the project
+
+run `pnpm run preview` to preview the project
+
+run `pnpm run test` to run the test
+
+run `pnpm i` to install the dependencies
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -48,4 +65,3 @@ export default tseslint.config({
   },
 })
 ```
-# tasklist
