@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Box, IconButton, Menu, MenuItem, Badge, Checkbox } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-interface EnumFilterProps<T> {
+type EnumFilterProps<T> = {
   enumObject: T;
   onChange: (value: Array<T[keyof T]> | null) => void;
 }
 
-const EnumFilter = <T extends object>({
+export function EnumFilter<T extends object>({
   enumObject,
   onChange,
-}: EnumFilterProps<T>) => {
+}: EnumFilterProps<T>) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedValues, setSelectedValues] = useState<Array<T[keyof T]> | null>([]);
 

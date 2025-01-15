@@ -3,14 +3,57 @@ import { Box, Typography } from "@mui/material";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import FeatureIcon from "@mui/icons-material/Star";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import { Task, TaskType } from "../models/task";
+import { Task, TaskType } from "../../models/task";
 import { TbClockBitcoin } from "react-icons/tb";
 
-interface TaskViewProps {
-  task?: Task;
-}
 
-const TaskView: React.FC<TaskViewProps> = ({ task }) => {
+const styles = {
+  container: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: "20px",
+    p: 3,
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    width: 400,
+    height: 400,
+  },
+
+  type: (color: string) => ({
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 1,
+    color: color,
+  }),
+  typeText: { fontWeight: "bold", variant: "h6" },
+  description: {
+    fontSize: "1.3rem",
+    color: "text.secondary",
+    animation: "fadeIn 1.5s ease",
+  },
+  time: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "auto",
+  },
+  timeText: {
+    variant: "body2",
+    color: "text.secondary",
+  },
+};
+
+type TaskViewProps = {
+  task?: Task;
+};
+
+export function TaskView({ task }: TaskViewProps) {
   // Get the icon and color based on the task type
   const getTaskTypeIcon = (type: TaskType) => {
     switch (type) {
@@ -41,55 +84,31 @@ const TaskView: React.FC<TaskViewProps> = ({ task }) => {
 
   return (
     <Box
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        bgcolor: "background.paper",
-        boxShadow: 24,
-        borderRadius: "20px",
-        p: 3,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        width: 400,
-        height: 400,
-      }}
+      sx={styles.container}
     >
       <Box
-        sx={{
-          color,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 1,
-        }}
+        sx={styles.type(color)}
       >
         {icon}
-        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h6">
           {task?.type}
         </Typography>
       </Box>
 
       <Box>
-        <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h3">
           {task?.title}
         </Typography>
       </Box>
 
       <Typography
-        sx={{
-          fontSize: "1.3rem",
-          color: "text.secondary",
-          animation: "fadeIn 1.5s ease",
-        }}
+        sx={styles.description}
       >
         {task?.description}
       </Typography>
-      <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "auto" }}>
+      <Box sx={styles.time}>
         <TbClockBitcoin fontSize="large" color="action" style={{ marginRight: "10px" }}/>
-        <Typography variant="body2" color="textSecondary">
+        <Typography style={styles.timeText}>
           Created{" "}
           {Math.floor(
             (new Date().getTime() - (task?.createdAt?.getTime() || 0)) / (1000 * 60)
@@ -101,4 +120,3 @@ const TaskView: React.FC<TaskViewProps> = ({ task }) => {
   );
 };
 
-export default TaskView;
