@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import { Box, IconButton, Menu, MenuItem, Badge, Checkbox } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
+
+
+const styles = {
+  box: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+  },
+  menuItem: {
+    color: "red",
+  },
+}
+
 type EnumFilterProps<T> = {
   enumObject: T;
   onChange: (value: Array<T[keyof T]> | null) => void;
@@ -44,7 +57,7 @@ export function EnumFilter<T extends object>({
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Box sx={styles.box}>
       <Badge
         color="primary"
         variant={selectedValues?.length && selectedValues.length > 0 ? 'dot' : undefined}
@@ -53,11 +66,6 @@ export function EnumFilter<T extends object>({
       >
         <IconButton
           onClick={handleIconClick}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
         >
           <FilterListIcon />
         </IconButton>
@@ -83,7 +91,7 @@ export function EnumFilter<T extends object>({
           </MenuItem>
         ))}
         {selectedValues && (
-          <MenuItem onClick={handleReset} sx={{ color: 'error.main' }}>
+          <MenuItem onClick={handleReset} sx={styles.menuItem}>
             Clear Filter
           </MenuItem>
         )}
@@ -91,5 +99,3 @@ export function EnumFilter<T extends object>({
     </Box>
   );
 };
-
-export default EnumFilter;

@@ -1,10 +1,9 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import FeatureIcon from "@mui/icons-material/Star";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import { Task, TaskType } from "../../models/task";
+import { Box, Typography } from "@mui/material";
 import { TbClockBitcoin } from "react-icons/tb";
+import { Task, TaskType } from "../../models/task";
 
 
 const styles = {

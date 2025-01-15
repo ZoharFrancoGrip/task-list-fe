@@ -1,23 +1,26 @@
+
 import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import { Task } from "../../models/task";
-import { css } from "@emotion/react";
 
 const styles = {
-  container: css`
+  container: {
     borderRadius: 3,
     align: "center",
     justifyContent: "center",
     alignItems: "center",
-    pt: 2,
-    pb: 2,
-  `,
-  text: css`
+    pt: 3,
+    pb: 1,
+    width: "100vw",
+  },
+  text: {
     align: "center",
     variant: "body1",
+    textAlign: "center",
+    justifyContent: "center",
     color: "textSecondary",
     pt: 2,
     pb: 2,
-  `,
+  },
 };
 
 type TaskTableFooterProps = {
@@ -39,7 +42,7 @@ export function TaskTableFooter({ tasks, filteredTasks }: TaskTableFooterProps) 
       {isNoTasks() && (
         <TableRow>
           <TableCell sx={styles.container}>
-            <Typography sx={styles.text}>No tasks....</Typography>
+            <Typography sx={styles.text}>No tasks ....</Typography>
           </TableCell>
         </TableRow>
       )}

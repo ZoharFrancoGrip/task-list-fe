@@ -10,23 +10,26 @@ import { createTaskTheme } from "./theme";
 
 const styles = {
   darkModeToggleButton: {position: 'absolute', top: 10, right: 10},
-  tasksDashboard: {height: '100vh'}
+  tasksDashboard: {height: '100vh'},
+  box: {
+    position: 'relative',
+  }
 }
 
 
 export function App() {
   const [darkMode, setDarkMode] = useState(false);
-
   const theme = useMemo(() => createTaskTheme(darkMode), [darkMode]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Box sx={styles.box}>
         <IconButton onClick={() => setDarkMode(!darkMode)} sx={styles.darkModeToggleButton}  >
           {darkMode ? <Brightness7 /> : <Brightness2Rounded />}
         </IconButton>
         <Box sx={styles.tasksDashboard}><TasksDashboard /></Box>;
-     
+      </Box>
     </ThemeProvider>
   );
 }

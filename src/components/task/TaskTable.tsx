@@ -1,29 +1,20 @@
-import { useMemo } from "react";
 import {
+  Box,
+  css,
+  IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Chip,
-  Typography,
-  Paper,
-  SvgIcon,
-  IconButton,
-  Box,
+  Typography
 } from "@mui/material";
-import { css } from "@mui/material";
+import { useMemo } from "react";
 
-import useTaskStore from "../../stores/taskStore";
-import {
-  Task,
-  TaskType,
-  TaskDifficulty,
-  TaskStatus,
-  TaskPriority,
-} from "../../models/task";
 import { CalendarMonth, DeleteOutline, Edit } from "@mui/icons-material";
+import { HiDocumentDuplicate } from "react-icons/hi";
 import {
   TaskDifficultyToColor,
   TaskDifficultyToIcon,
@@ -34,11 +25,18 @@ import {
   TaskTypeToColor,
   TaskTypeToIcon,
 } from "../../config/task-properties-decoration-config";
+import {
+  Task,
+  TaskDifficulty,
+  TaskPriority,
+  TaskStatus,
+  TaskType,
+} from "../../models/task";
+import useTaskStore from "../../stores/taskStore";
 import SearchBar from "../shared/SearchBar";
-import { TaskTableFooter } from "./TaskTableFooter";
-import { HiDocumentDuplicate } from "react-icons/hi";
 import { TableHeadCellWithFilter } from "../shared/TableHeadCellFilter";
 import { TableIconBadgeCell } from "../shared/TableIconBadgeCell";
+import { TaskTableFooter } from "./TaskTableFooter";
 
 const styles = {
   tableContainer: {
@@ -184,8 +182,12 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
                 </TableCell>
               </TableRow>
             ))}
+          <TableRow>
+            <TableCell colSpan={7} sx={{ padding: 0, textAlign: 'center' }}>
+              <TaskTableFooter tasks={tasks} filteredTasks={filteredTasks} />
+            </TableCell>
+          </TableRow>
         </TableBody>
-        <TaskTableFooter tasks={tasks} filteredTasks={filteredTasks} />
       </Table>
     </TableContainer>
   );
