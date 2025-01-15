@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, IconButton, Modal, Typography } from "@mui/material";
-import TaskForm from "../components/task/task-form/TaskForm";
+import TaskForm from "../components/task/TaskForm";
 import useTaskStore from "../stores/taskStore";
 import { Task } from "../models/task";
 import { Add } from "@mui/icons-material";

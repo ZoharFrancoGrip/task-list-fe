@@ -11,8 +11,8 @@ import {
   TaskPriority,
   TaskStatus,
   TaskType,
-} from "../../../models/task";
-import { EnumFormMenu } from "../../shared/EnumFormMenu";
+} from "../../models/task";
+import { EnumFormMenu } from "../shared/EnumFormMenu";
 
 const styles = {
   taskForm: {
