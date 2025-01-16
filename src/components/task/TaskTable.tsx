@@ -1,5 +1,6 @@
 import {
   Box,
+  CircularProgress,
   css,
   IconButton,
   Paper,
@@ -9,11 +10,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from "@mui/material";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
-import { CalendarMonth, DeleteOutline, Edit } from "@mui/icons-material";
+import {
+  CalendarMonth,
+  DeleteOutline,
+  Edit,
+  ErrorOutline,
+  OnlinePrediction,
+} from "@mui/icons-material";
 import { HiDocumentDuplicate } from "react-icons/hi";
 import {
   TaskDifficultyToColor,
@@ -48,12 +55,13 @@ const styles = {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
+      marginTop: 2,
+      marginLeft: 2,
     },
     pryiorityChip: (task: Task) => ({
       backgroundColor: TaskPriorityToColor[task.priority],
       color: "white",
     }),
-    
   },
 };
 
@@ -70,13 +78,40 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
     setFilter,
     filter,
     getFilteredTasks,
+    fetchTasks,
+    isLoading,
+    isError,
   } = useTaskStore();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const filteredTasks = useMemo(() => getFilteredTasks(), [tasks, filter]);
 
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
+
   return (
     <TableContainer component={Paper} sx={styles.tableContainer.container}>
+      {isLoading ? (
+            <Box sx={styles.tableContainer.box}>
+              <CircularProgress size={24} />
+              <Typography>Loading tasks...</Typography>
+            </Box>
+          ) : isError ? (
+            <Box sx={styles.tableContainer.box}>
+                <ErrorOutline color="error" sx={{ marginRight: 1 }} />
+                <Typography color="error">
+                  Server is down, tasks won't be loaded and saved
+                </Typography>
+              </Box>
+          ) : (
+            <Box sx={styles.tableContainer.box}>
+                <OnlinePrediction color="success" sx={{ marginRight: 1 }} />
+                <Typography color="success">
+                  Server is up
+                </Typography>
+            </Box>
+          )}
       <Table>
         <TableHead>
           <TableRow>
@@ -121,11 +156,10 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
             <TableCell>
               <Typography fontWeight="bold">Created At</Typography>
             </TableCell>
-            <TableCell>
-              <Typography fontWeight="bold"></Typography>
-            </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {filteredTasks?.length !== 0 &&
             filteredTasks?.map((task) => (
@@ -180,8 +214,9 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
                 </TableCell>
               </TableRow>
             ))}
+
           <TableRow>
-            <TableCell colSpan={7} sx={{ padding: 0, textAlign: 'center' }}>
+            <TableCell colSpan={7} sx={{ padding: 0, textAlign: "center" }}>
               <TaskTableFooter tasks={tasks} filteredTasks={filteredTasks} />
             </TableCell>
           </TableRow>
