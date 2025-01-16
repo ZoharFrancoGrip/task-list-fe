@@ -26,8 +26,8 @@ export function EnumFormMenu<T>({
       sx={sx}
       displayEmpty
     >
-      {options.map((option) => (
-        <MenuItem value={option}>{option}</MenuItem>
+      {options.filter((option, index) => options.indexOf(option) === index).map((option) => (
+        <MenuItem key={option} value={option}>{option}</MenuItem>
       ))}
     </Select>
   );

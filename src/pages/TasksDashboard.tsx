@@ -50,11 +50,11 @@ export function TasksDashboard() {
         Task Management Dashboard
       </Typography>
       <TaskTable
-        onEdit={(task) => {
+        onEdit={(task: Task) => {
           setCurrentTask(task);
           setEditModalOpen(true);
         }}
-        onView={(task) => {
+        onView={(task: Task) => {
           setCurrentTask(task);
           setViewModalOpen(true);
         }}

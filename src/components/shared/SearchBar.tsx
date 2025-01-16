@@ -15,11 +15,11 @@ export function SearchBar({ placeholder, setSearchQuery }: SearchBarProps) {
           placeholder={placeholder}
             value={searchValue}
             onChange={(e) => {
-                setSearchQuery(e.target.value)
-                setSearchValue(e.target.value)
+              setSearchQuery(e.target.value);
+              setSearchValue(e.target.value);
             }}
             size="small"
-            
+            variant="outlined"
           />
         </Box>
     </Box>

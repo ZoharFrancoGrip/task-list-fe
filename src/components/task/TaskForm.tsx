@@ -60,23 +60,20 @@ type TaskFormProps = {
 };
 
 export function TaskForm({ onSave, onClose, task }: TaskFormProps) {
-  const [title, setTitle] = useState(task?.title || "");
-  const [description, setDescription] = useState(task?.description || "");
-  const [type, setType] = useState(task?.type || TaskType.Feature);
-  const [difficulty, setDifficulty] = useState(task?.difficulty || TaskDifficulty.Hard);
-  const [priority, setPriority] = useState(task?.priority || TaskPriority.High);
-  const [status, setStatus] = useState(task?.status || TaskStatus.ToDo);
-
+  const [taskForm, setTaskForm] = useState<Task>(task || {
+    id: Date.now(),
+    createdAt: new Date(),
+    title: "",
+    description: "",
+    priority: TaskPriority.High,
+    status: TaskStatus.ToDo,
+    type: TaskType.Feature,
+    difficulty: TaskDifficulty.Hard,
+  });
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({
-      title,
-      description,
-      priority,
-      status,
-      type,
-      difficulty,
-    });
+    onSave(taskForm);
     onClose();
   };
 
@@ -89,15 +86,15 @@ export function TaskForm({ onSave, onClose, task }: TaskFormProps) {
       <Typography variant="h6">Task Form</Typography>
       <TextField
         label="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={taskForm.title}
+        onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
         required
         sx={styles.taskForm.textField}
       />
       <TextField
         label="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={taskForm.description}
+        onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
         multiline
         rows={4}
         sx={styles.taskForm.textField}
@@ -108,8 +105,8 @@ export function TaskForm({ onSave, onClose, task }: TaskFormProps) {
             Type
           </Typography>
           <EnumFormMenu
-            value={type || ""}
-            setValue={setType}
+            value={taskForm.type}
+            setValue={(value) => setTaskForm({ ...taskForm, type: value as TaskType })}
             options={Object.values(TaskType)}
             label="Type"
             sx={styles.taskForm.selectContainer.box.select}
@@ -118,8 +115,8 @@ export function TaskForm({ onSave, onClose, task }: TaskFormProps) {
         <Box sx={styles.taskForm.selectContainer.box}>
           <Typography gutterBottom>Difficulty</Typography>
           <EnumFormMenu
-            value={difficulty || ""}
-            setValue={setDifficulty}
+            value={taskForm.difficulty}
+            setValue={(value) => setTaskForm({ ...taskForm, difficulty: value as TaskDifficulty })}
             options={Object.values(TaskDifficulty)}
             label="Difficulty"
             sx={styles.taskForm.selectContainer.box.select}
@@ -130,8 +127,8 @@ export function TaskForm({ onSave, onClose, task }: TaskFormProps) {
         <Box sx={styles.taskForm.selectContainer.box}>
           <Typography gutterBottom>Priority</Typography>
           <EnumFormMenu
-            value={priority || ""}
-            setValue={setPriority}
+            value={taskForm.priority}
+            setValue={(value) => setTaskForm({ ...taskForm, priority: value as TaskPriority })}
             options={Object.values(TaskPriority)}
             label="Priority"
             sx={styles.taskForm.selectContainer.box.select}
@@ -140,8 +137,8 @@ export function TaskForm({ onSave, onClose, task }: TaskFormProps) {
         <Box sx={styles.taskForm.selectContainer.box}>
           <Typography gutterBottom>Status</Typography>
           <EnumFormMenu
-            value={status || ""}
-            setValue={setStatus}
+            value={taskForm.status}
+            setValue={(value) => setTaskForm({ ...taskForm, status: value as TaskStatus })}
             options={Object.values(TaskStatus)}
             label="Status"
             sx={styles.taskForm.selectContainer.box.select}

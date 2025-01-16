@@ -81,12 +81,10 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
         <TableHead>
           <TableRow>
             <TableCell>
-              <Typography fontWeight="bold">
-                <SearchBar
-                  placeholder="Title..."
-                  setSearchQuery={(value) => setFilter("search", value)}
-                />
-              </Typography>
+              <SearchBar
+                placeholder="Title..."
+                setSearchQuery={(value) => setFilter("search", value)}
+              />
             </TableCell>
             <TableHeadCellWithFilter
               enumObject={TaskPriority}

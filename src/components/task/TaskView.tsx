@@ -1,9 +1,7 @@
-import BugReportIcon from "@mui/icons-material/BugReport";
-import FeatureIcon from "@mui/icons-material/Star";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Box, Typography } from "@mui/material";
 import { TbClockBitcoin } from "react-icons/tb";
 import { Task, TaskType } from "../../models/task";
+import { TaskTypeToColor, TaskTypeToIcon } from "../../config/task-properties-decoration-config";
 
 
 const styles = {
@@ -53,33 +51,10 @@ type TaskViewProps = {
 };
 
 export function TaskView({ task }: TaskViewProps) {
-  // Get the icon and color based on the task type
-  const getTaskTypeIcon = (type: TaskType) => {
-    switch (type) {
-      case TaskType.Bug:
-        return {
-          icon: <BugReportIcon fontSize="large" />,
-          color: "error.main",
-        };
-      case TaskType.Feature:
-        return {
-          icon: <FeatureIcon fontSize="large" />,
-          color: "primary.main",
-        };
-      case TaskType.Task:
-        return {
-          icon: <TaskAltIcon fontSize="large" />,
-          color: "success.main",
-        };
-      default:
-        return {
-          icon: <TaskAltIcon fontSize="large" />,
-          color: "text.secondary",
-        };
-    }
-  };
+  
 
-  const { icon, color } = getTaskTypeIcon(task?.type || TaskType.Bug);
+  const icon = TaskTypeToIcon[task?.type || TaskType.Bug];
+  const color = TaskTypeToColor[task?.type || TaskType.Bug];
 
   return (
     <Box
@@ -108,11 +83,9 @@ export function TaskView({ task }: TaskViewProps) {
       <Box sx={styles.time}>
         <TbClockBitcoin fontSize="large" color="action" style={{ marginRight: "10px" }}/>
         <Typography style={styles.timeText}>
-          Created{" "}
-          {Math.floor(
-            (new Date().getTime() - (task?.createdAt?.getTime() || 0)) / (1000 * 60)
-          )}{" "}
-          minutes ago
+          {task?.createdAt ? `Created ${Math.floor(
+            (new Date().getTime() - task.createdAt.getTime()) / (1000 * 60)
+          )} minutes ago` : "Created"}
         </Typography>
       </Box>
     </Box>
