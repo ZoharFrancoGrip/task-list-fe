@@ -108,7 +108,7 @@ const useTaskStore = create<TaskStore>((set, get) => {
             set({ isLoading: true, error: null });
             try {
                 const tasks = await taskClient.getTasks();
-                set({ tasks, isLoading: false });
+                set({ tasks, isLoading: false, isError: false });
             } catch (error) {
                 set({ error: (error as Error).message, isLoading: false, isError: true });
             }

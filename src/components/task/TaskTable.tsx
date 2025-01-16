@@ -87,8 +87,9 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
   const filteredTasks = useMemo(() => getFilteredTasks(), [tasks, filter]);
 
   useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+    const interval = setInterval(fetchTasks, 5000);
+    return () => clearInterval(interval);
+  });
 
   return (
     <TableContainer component={Paper} sx={styles.tableContainer.container}>
