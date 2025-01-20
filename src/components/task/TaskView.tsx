@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { TbClockBitcoin } from "react-icons/tb";
 import { Task, TaskType } from "../../models/task";
-import { TaskTypeToColor, TaskTypeToIcon } from "../../config/task-properties-decoration-config";
-
+import {
+  TaskTypeToColor,
+  TaskTypeToIcon,
+} from "../../config/task-properties-decoration-config";
 
 const styles = {
   container: {
@@ -51,44 +53,33 @@ type TaskViewProps = {
 };
 
 export function TaskView({ task }: TaskViewProps) {
-  
-
   const icon = TaskTypeToIcon[task?.type || TaskType.Bug];
   const color = TaskTypeToColor[task?.type || TaskType.Bug];
 
   return (
-    <Box
-      sx={styles.container}
-    >
-      <Box
-        sx={styles.type(color)}
-      >
+    <Box sx={styles.container}>
+      <Box sx={styles.type(color)}>
         {icon}
-        <Typography variant="h6">
-          {task?.type}
-        </Typography>
+        <Typography variant="h6">{task?.type ?? "Bug"}</Typography>
       </Box>
-
       <Box>
-        <Typography variant="h3">
-          {task?.title}
-        </Typography>
+        <Typography variant="h3">{task?.title ?? "Untitled"}</Typography>
       </Box>
-
-      <Typography
-        sx={styles.description}
-      >
-        {task?.description}
-      </Typography>
+      <Typography sx={styles.description}>{task?.description ?? "No description"}</Typography>
       <Box sx={styles.time}>
-        <TbClockBitcoin fontSize="large" color="action" style={{ marginRight: "10px" }}/>
+        <TbClockBitcoin
+          fontSize="large"
+          color="action"
+          style={{ marginRight: "10px" }}
+        />
         <Typography style={styles.timeText}>
-          {task?.createdAt ? `Created ${Math.floor(
-            (new Date().getTime() - task.createdAt.getTime()) / (1000 * 60)
-          )} minutes ago` : "Created"}
+          {task?.createdAt
+            ? `Created ${Math.floor(
+                (new Date().getTime() - task.createdAt.getTime()) / (1000 * 60)
+              )} minutes ago`
+            : "Created"}
         </Typography>
       </Box>
     </Box>
   );
-};
-
+}

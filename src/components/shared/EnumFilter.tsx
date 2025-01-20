@@ -81,10 +81,10 @@ export function EnumFilter<T extends object>({
           <MenuItem
             key={value as string}
             onClick={() => handleSelect(value)}
-              selected={Array.isArray(selectedValues) && selectedValues.includes(value)}
+            selected={selectedValues?.includes(value) ?? false}
           >
             <Checkbox 
-              checked={Array.isArray(selectedValues) && selectedValues.includes(value)}
+              checked={selectedValues?.includes(value) ?? false}
               size="small"
             />
             {value}

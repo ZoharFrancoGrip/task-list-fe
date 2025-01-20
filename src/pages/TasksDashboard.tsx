@@ -27,20 +27,20 @@ export function TasksDashboard() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
 
-  const [currentTask, setCurrentTask] = useState<Task | null>(null);
+  const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
 
-  const handleSaveTask = (task: Omit<Task, "id" | "createdAt">) => {
+  const handleSaveTask = (task: Task) => {
     if (currentTask) {
       updateTask(currentTask.id, task);
     } else {
       addTask({ ...task, createdAt: new Date(), id: Date.now() });
     }
     setEditModalOpen(false);
-    setCurrentTask(null);
+    setCurrentTask(undefined);
   };
 
   const handleNewTask = () => {
-    setCurrentTask(null);
+    setCurrentTask(undefined);
     setEditModalOpen(true);
   };
 
@@ -69,13 +69,13 @@ export function TasksDashboard() {
           <TaskForm
             onSave={handleSaveTask}
             onClose={() => setEditModalOpen(false)}
-            task={currentTask ?? undefined}
+            task={currentTask}
           />
         </Box>
       </Modal>
       <Modal open={viewModalOpen} onClose={() => setViewModalOpen(false)}>
         <Box>
-          <TaskView task={currentTask ?? undefined} />
+          <TaskView task={currentTask} />
         </Box>
       </Modal>
     </Box>
