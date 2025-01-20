@@ -83,8 +83,7 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
     isError,
   } = useTaskStore();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const filteredTasks = useCallback(() => getFilteredTasks(), [tasks, filter]);
+  const filteredTasks = useCallback(() => getFilteredTasks(tasks, filter), [tasks, filter, getFilteredTasks]);
 
   useEffect(() => {
     fetchTasks();

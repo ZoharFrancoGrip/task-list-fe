@@ -23,7 +23,7 @@ interface TaskStore {
     deleteTask: (id: number) => void;
     duplicateTask: (id: number) => void;
     setFilter: (key: keyof FilterState, values: Array<string> | string | null) => void;
-    getFilteredTasks: () => Task[];
+    getFilteredTasks: (tasks: Task[], filter: FilterState) => Task[];
     fetchTasks: () => Promise<void>;
 }
 
@@ -89,8 +89,7 @@ const useTaskStore = create<TaskStore>((set, get) => {
                 filter: { ...state.filter, [key]: values },
             }))
         },
-        getFilteredTasks: () => {
-            const { tasks, filter } = get();
+        getFilteredTasks: (tasks: Task[], filter: FilterState) => {
             return tasks.filter((task) => {
                 return (
                     (filter.priority?.length === 0 || filter.priority?.includes(task.priority)) &&
