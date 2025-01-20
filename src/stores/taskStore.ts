@@ -14,7 +14,6 @@ interface FilterState {
 
 interface TaskStore {
     tasks: Task[];
-    filteredTasks: Task[];
     filter: FilterState;
     isLoading: boolean;
     isError: boolean;
@@ -32,7 +31,6 @@ interface TaskStore {
 const useTaskStore = create<TaskStore>((set, get) => {
     return {
         tasks: [],
-        filteredTasks: [],
         filter: {
             priority: [],
             status: [],

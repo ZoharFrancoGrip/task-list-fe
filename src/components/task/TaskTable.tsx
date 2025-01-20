@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import {
   CalendarMonth,
@@ -84,12 +84,13 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
   } = useTaskStore();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const filteredTasks = useMemo(() => getFilteredTasks(), [tasks, filter]);
+  const filteredTasks = useCallback(() => getFilteredTasks(), [tasks, filter]);
 
   useEffect(() => {
+    fetchTasks();
     const interval = setInterval(fetchTasks, 5000);
     return () => clearInterval(interval);
-  });
+  }, [fetchTasks]);
 
   return (
     <TableContainer component={Paper} sx={styles.tableContainer.container}>
@@ -162,8 +163,8 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
         </TableHead>
 
         <TableBody>
-          {filteredTasks?.length !== 0 &&
-            filteredTasks?.map((task) => (
+          {filteredTasks()?.length !== 0 &&
+            filteredTasks()?.map((task) => (
               <TableRow key={task.id} onDoubleClick={() => onView(task)}>
                 <TableCell>{task.title}</TableCell>
                 <TableIconBadgeCell
@@ -218,7 +219,7 @@ export function TaskTable({ onEdit, onView }: TaskTableProps) {
 
           <TableRow>
             <TableCell colSpan={7} sx={{ padding: 0, textAlign: "center" }}>
-              <TaskTableFooter tasks={tasks} filteredTasks={filteredTasks} />
+              <TaskTableFooter tasks={tasks} filteredTasks={filteredTasks()} />
             </TableCell>
           </TableRow>
         </TableBody>
