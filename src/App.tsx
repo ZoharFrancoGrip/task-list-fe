@@ -1,4 +1,3 @@
-
 import { useMemo, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,15 +6,13 @@ import { Box, IconButton } from "@mui/material";
 import { Brightness2Rounded, Brightness7 } from "@mui/icons-material";
 import { createTaskTheme } from "./theme";
 
-
 const styles = {
-  darkModeToggleButton: {position: 'absolute', top: 10, right: 10},
-  tasksDashboard: {height: '100vh'},
+  darkModeToggleButton: { position: "absolute", top: 10, right: 10 },
+  tasksDashboard: { height: "100vh" },
   box: {
-    position: 'relative',
-  }
-}
-
+    position: "relative",
+  },
+};
 
 export function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -25,10 +22,16 @@ export function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={styles.box}>
-        <IconButton onClick={() => setDarkMode(!darkMode)} sx={styles.darkModeToggleButton}  >
+        <IconButton
+          onClick={() => setDarkMode(!darkMode)}
+          sx={styles.darkModeToggleButton}
+        >
           {darkMode ? <Brightness7 /> : <Brightness2Rounded />}
         </IconButton>
-        <Box sx={styles.tasksDashboard}><TasksDashboard /></Box>;
+        <Box sx={styles.tasksDashboard}>
+          <TasksDashboard />
+        </Box>
+        ;
       </Box>
     </ThemeProvider>
   );

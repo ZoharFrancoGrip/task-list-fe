@@ -54,7 +54,7 @@ const styles = {
 };
 
 type TaskFormProps = {
-  onSave: (task: Omit<Task, "id" | "createdAt">) => void;
+  onSave: (task: Task) => void;
   onClose: () => void;
   task?: Task;
 };
