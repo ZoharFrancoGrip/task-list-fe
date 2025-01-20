@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useMemo, useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { TasksDashboard } from "./pages/TasksDashboard";
+import { Box, IconButton } from "@mui/material";
+import { Brightness2Rounded, Brightness7 } from "@mui/icons-material";
+import { createTaskTheme } from "./theme";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+const styles = {
+  darkModeToggleButton: {position: 'absolute', top: 10, right: 10},
+  tasksDashboard: {height: '100vh'},
+  box: {
+    position: 'relative',
+  }
 }
 
-export default App
+
+export function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = useMemo(() => createTaskTheme(darkMode), [darkMode]);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={styles.box}>
+        <IconButton onClick={() => setDarkMode(!darkMode)} sx={styles.darkModeToggleButton}  >
+          {darkMode ? <Brightness7 /> : <Brightness2Rounded />}
+        </IconButton>
+        <Box sx={styles.tasksDashboard}><TasksDashboard /></Box>;
+      </Box>
+    </ThemeProvider>
+  );
+}
+
+export default App;
